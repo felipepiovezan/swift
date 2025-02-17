@@ -272,6 +272,11 @@ AsyncTask *swift::swift_task_getCurrent() {
   return ActiveTask::get();
 }
 
+SWIFT_CC(swift)
+uint32_t swift::swift_task_my_getCurrentJobID() {
+  return ActiveTask::get()->getJobId();
+}
+
 AsyncTask *swift::_swift_task_clearCurrent() {
   return ActiveTask::swap(nullptr);
 }

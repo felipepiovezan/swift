@@ -941,6 +941,9 @@ void swift_job_run_on_serial_and_task_executor(Job *job,
 SWIFT_EXPORT_FROM(swift_Concurrency) SWIFT_CC(swift)
 AsyncTask *swift_task_getCurrent(void);
 
+SWIFT_EXPORT_FROM(swift_Concurrency) SWIFT_CC(swift)
+uint32_t swift_task_my_getCurrentJobID(void);
+
 /// Return the current thread's active executor reference.
 SWIFT_EXPORT_FROM(swift_Concurrency) SWIFT_CC(swift)
 SerialExecutorRef swift_task_getCurrentExecutor(void);

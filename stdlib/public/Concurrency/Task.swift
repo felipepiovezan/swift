@@ -1044,6 +1044,10 @@ extension UnsafeCurrentTask: Equatable {
 
 // ==== Internal ---------------------------------------------------------------
 @available(SwiftStdlib 5.1, *)
+@_silgen_name("swift_task_my_getCurrentJobID")
+public func _my_getCurrentJobID() -> UInt32
+
+@available(SwiftStdlib 5.1, *)
 @_silgen_name("swift_task_getCurrent")
 public func _getCurrentAsyncTask() -> Builtin.NativeObject?
 
