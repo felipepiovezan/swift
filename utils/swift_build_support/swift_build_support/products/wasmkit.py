@@ -112,7 +112,9 @@ def run_swift_build(host_target, product, swiftpm_package_product_name, set_inst
         '--package-path', os.path.join(product.source_dir),
         '--build-path', product.build_dir,
         '--configuration', 'release',
-        '--traits', 'WasmDebuggingSupport',
+        # --traits replaces the package's default set rather than adding to it,
+        # so WasmKit's defaults have to be repeated alongside the opt-in one.
+        '--traits', 'FileSystem,MultiThread,Disassembler,WasmDebuggingSupport',
     ] + platform_args
 
     if product.args.verbose_build:
