@@ -57,6 +57,7 @@ class WasmKit(product.Product):
         build_toolchain_path = install_destdir + self.args.install_prefix + '/bin'
         bin_path = run_swift_build(host_target, self, 'wasmkit-cli', set_installation_rpath=True)
         shutil.copy(bin_path, build_toolchain_path + '/wasmkit')
+        codesign_adhoc(host_target, build_toolchain_path + '/wasmkit')
 
     def build(self, host_target):
         bin_path = run_swift_build(host_target, self, 'wasmkit-cli')
@@ -66,10 +67,20 @@ class WasmKit(product.Product):
         print("Copying wasmkit-cli to: " + dest_bin_path, flush=True)
         os.makedirs(os.path.dirname(dest_bin_path), exist_ok=True)
         shutil.copy(bin_path, dest_bin_path)
+        codesign_adhoc(host_target, dest_bin_path)
 
     @classmethod
     def cli_file_path(cls, build_dir):
         return os.path.join(build_dir, 'bin', 'wasmkit')
+
+
+def codesign_adhoc(host_target, path):
+    # The merged universal binary carries no valid whole-file signature: only
+    # the arm64 slice is linker-signed. macOS has been seen rejecting the
+    # result at exec with "Taskgated Invalid Signature".
+    if not host_target.startswith('macos'):
+        return
+    shell.call(['codesign', '-f', '-s', '-', path])
 
 
 def run_swift_build(host_target, product, swiftpm_package_product_name, set_installation_rpath=False):
