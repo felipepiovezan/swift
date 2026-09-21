@@ -37,14 +37,14 @@ const void *const _swift_concurrency_debug_asyncTaskMetadata;
 
 /// The size of an AsyncTask, in bytes.
 SWIFT_EXPORT_FROM(swift_Concurrency)
-const size_t _swift_concurrency_debug_asyncTaskSize;
+const size_t SWIFT_CONCURRENCY_DEBUG_VAR _swift_concurrency_debug_asyncTaskSize;
 
 /// Offset from the start of an `AsyncTask` to its `NameFragment`
 /// (a single `const char *` pointing to the task's null-terminated name).
 ///
 /// The fragment is ONLY present when `JobFlags::task_hasInitialTaskName()` is true.
 SWIFT_EXPORT_FROM(swift_Concurrency)
-const size_t _swift_concurrency_debug_asyncTaskNameOffset;
+const size_t SWIFT_CONCURRENCY_DEBUG_VAR _swift_concurrency_debug_asyncTaskNameOffset;
 
 /// A fake metadata pointer placed at the start of async task slab allocations.
 SWIFT_EXPORT_FROM(swift_Concurrency)
@@ -71,7 +71,7 @@ bool _swift_concurrency_debug_supportsPriorityEscalation;
 /// 3 - The top 8 bits of this value have been reserved to expose how runtimes
 ///     store the current task (swift_concurrency_current_task_storage_kind).
 SWIFT_EXPORT_FROM(swift_Concurrency)
-uint32_t _swift_concurrency_debug_internal_layout_version;
+uint32_t SWIFT_CONCURRENCY_DEBUG_VAR _swift_concurrency_debug_internal_layout_version;
 
 } // namespace swift
 

@@ -77,7 +77,7 @@ class ContinuationAsyncContext;
 // Forward-declared from `stdlib/public/Concurrency/Debug.h` so we can assert
 // against it.
 #if !SWIFT_CONCURRENCY_EMBEDDED
-extern "C" const size_t _swift_concurrency_debug_asyncTaskNameOffset;
+extern "C" const size_t SWIFT_CONCURRENCY_DEBUG_VAR _swift_concurrency_debug_asyncTaskNameOffset;
 #endif
 
 // lldb knows about some of these internals. If you change things that lldb

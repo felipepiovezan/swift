@@ -188,6 +188,19 @@ extern uintptr_t __COMPATIBILITY_LIBRARIES_CANNOT_CHECK_THE_IS_SWIFT_BIT_DIRECTL
 #endif
 #define SWIFT_RUNTIME_EXPORT_ATTRIBUTE SWIFT_EXPORT_FROM_ATTRIBUTE(swiftCore)
 
+// Debuggers find the variables carrying this by name. On WebAssembly only wasm
+// globals get a name entry (lldb reads the name section's global subsection);
+// linear-memory data gets none, so they must be in address space 1
+// (WASM_ADDRESS_SPACE_VAR). Placement follows the declarator, so for a pointer
+// it belongs after the `*`.
+// Only i32/i64 constant initializers survive; anything else (sub-i32, or a
+// relocatable address) silently initializes to 0. See getWasmGlobalInitBits.
+#if defined(__wasm__)
+#define SWIFT_CONCURRENCY_DEBUG_VAR __attribute__((address_space(1)))
+#else
+#define SWIFT_CONCURRENCY_DEBUG_VAR
+#endif
+
 // Define mappings for calling conventions.
 
 // Annotation for specifying a calling convention of
